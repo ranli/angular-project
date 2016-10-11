@@ -1,0 +1,14 @@
+<md-card class="demo-card demo-basic">
+  <md-card-title><button md-raised-button class="twitter" (click)="login()">Login with Twitter</button></md-card-title>
+  <md-toolbar>Login</md-toolbar>
+  <md-card-subtitle class="red" [hidden]="!message">{{message}}</md-card-subtitle>
+  <md-card-content>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    	<div ngModelGroup="user">
+        	<md-input name="email" [(ngModel)]="user.email" class="demo-half-width" placeholder="Email" ></md-input><br>
+        	<md-input name="password" [(ngModel)]="user.password" class="demo-half-width" placeholder="Password"></md-input>
+    	</div>
+    	<button md-button type="submit">LogIn</button>
+    </form>
+  </md-card-content>
+</md-card>

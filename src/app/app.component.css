@@ -1,0 +1,63 @@
+
+.cardContainer{
+	position: fixed;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.9;
+	z-index: 10;
+}
+.demo-card{
+	background-color: #ffffff;
+	position: fixed;
+	width: 50%;
+	left: 25%;
+	top:10%;
+	color: black;
+	z-index: 11;
+	opacity: 1;
+	text-align: center;
+}
+.demo-card md-icon{
+	position: absolute;
+	top:1%;
+	right: 1%;
+}
+.preview{
+	width: 200px;
+	height: 200px;
+
+}
+.alignright{
+	float: right;
+	margin-right: 10px;
+	line-height: 1;
+}
+nav{
+	height: 50px;
+	border: 1px solid #f5f5ef;
+    margin-left: -8px;
+    margin-right: -8px;
+    box-shadow: 1px 3px 5px #888888;
+    line-height: 3;
+}
+nav a{
+	color: #E91E63;
+	text-decoration: none;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	padding: 15px;
+}
+.active{
+	background-color: #F5F5F5;
+}
+.add{
+	background-color:#EC407A;
+	color: #ffffff;
+	position: fixed;
+	right: 5px;
+	top: 70px;
+	z-index: 9999;
+}
+

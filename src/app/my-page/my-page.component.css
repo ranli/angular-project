@@ -1,0 +1,11 @@
+.card-container md-card{
+	width: 15%;
+	float: left;
+	margin-right: 10px;
+}
+
+.like{
+	font-size: 25px;
+	color: #EC407A;
+
+}

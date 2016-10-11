@@ -1,0 +1,15 @@
+<md-toolbar [color]="myColor">
+  <span>My Recent Uploads:</span>
+</md-toolbar>
+<div class="card-container">
+	<md-card *ngFor="let image of images | async">
+	  <md-card-header>
+	    <md-card-title>{{image.title}}</md-card-title>
+	  </md-card-header>
+	  <img md-card-image alt="Main image" src="{{image.url}}">
+	  <md-card-content>
+	    <md-card-title><md-icon class="like">favorite</md-icon></md-card-title>
+	    <p>{{image.likes}} LIKES</p>
+	  </md-card-content>
+	</md-card>
+</div> 	

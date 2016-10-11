@@ -1,0 +1,23 @@
+<masonry [options]="{gutter: 20, percentPosition: true}">
+  <masonry-brick class="brick" *ngFor="let image of images | async">
+  	<md-card>
+	  <md-card-header>
+	    <img (click)="gotoDetail(image)" md-card-avatar src="{{image.authorPhoto}}">
+	    <md-card-title>{{image.author}}</md-card-title>
+	    <md-card-subtitle>{{image.title}}</md-card-subtitle>
+	  </md-card-header>
+	  <img (click)="openImage(image.url)" md-card-image alt="Main image" src="{{image.url}}">
+	  <md-card-content>
+	    <md-card-title><md-icon class="like" (click)="updateLikes(image)">favorite</md-icon></md-card-title>
+	    <p>{{image.likes}} LIKES</p>
+	  </md-card-content>
+	</md-card>
+  </masonry-brick>
+</masonry>
+
+<div [hidden]="!preview" class="imgContainer">
+	<div class="inner">
+		<md-icon class="close" (click)="closeImage()">close</md-icon>
+		<img class="largeImg">
+	</div>
+</div>

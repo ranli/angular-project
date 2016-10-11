@@ -1,0 +1,16 @@
+
+
+<div class="card-container">
+	<md-card *ngFor="let image of images | async">
+	  <md-card-header>
+	  	<img md-card-avatar src="{{image.authorPhoto}}">
+	  	<md-card-title>{{image.author}}</md-card-title>
+	    <md-card-title>{{image.title}}</md-card-title>
+	  </md-card-header>
+	  <img md-card-image alt="Main image" src="{{image.url}}">
+	  <md-card-content>
+	    <md-card-title><md-icon class="like" (click)="updateLikes(image)">favorite</md-icon></md-card-title>
+	    <p>{{image.likes}} LIKES</p>
+	  </md-card-content>
+	</md-card>
+</div> 	

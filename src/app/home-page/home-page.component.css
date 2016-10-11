@@ -1,0 +1,34 @@
+.brick { width: 18%; margin-bottom: 15px;}
+.imgContainer{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	text-align: center;
+}
+.largeImg{
+	width: auto;
+	height: auto;
+	max-width: 100%;
+}
+.inner{
+	width: auto;
+	position: fixed;
+	text-align: center;
+	margin: 0 auto;
+	max-width: 80%;
+}
+.close{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	color: white;
+}
+.like{
+	font-size: 45px;
+	color: #EC407A;
+
+}
+
+
