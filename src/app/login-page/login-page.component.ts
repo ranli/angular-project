@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire,FirebaseListObservable,AuthMethods,AuthProviders } from 'angularfire2';
+import { AngularFire,AuthMethods,AuthProviders } from 'angularfire2';
 import { NgForm} from '@angular/forms';
 import { Router} from '@angular/router';
 
@@ -13,7 +13,7 @@ export class LoginPageComponent implements OnInit {
   user = {email:"",password:""};
   message: string;
   constructor(public af: AngularFire, public router: Router) { 
-  		this.af.auth.subscribe(auth => console.log(auth));
+  		
   }
 
   ngOnInit() {

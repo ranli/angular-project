@@ -1,11 +1,12 @@
-.card-container md-card{
+.brick{
 	width: 15%;
-	float: left;
-	margin-right: 10px;
+}
+div p{
+	margin: 0;
+	word-wrap: break-word;
+	
+}
+.comment {
+	color: #303f9f;
 }
 
-.like{
-	font-size: 25px;
-	color: #EC407A;
-
-}

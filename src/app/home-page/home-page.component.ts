@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { ImageServiceService } from '../image-service.service'
 import { Router }  from '@angular/router';
+import { AngularFire} from 'angularfire2';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -8,11 +9,15 @@ import { Router }  from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
 
-  images: FirebaseListObservable<any[]>;
-  preview:boolean;
-  constructor(public af:AngularFire, public router: Router){
-  		this.images = af.database.list('/images',{query: {orderByChild: 'likes'}});
+  images: any;
+  preview: boolean;
+  user:any;
+  length:number;
+  constructor(private imageService: ImageServiceService, public router: Router,public af:AngularFire){
+      this.af.auth.subscribe(res => this.user = res);
+  		this.images = this.imageService.getAllImages();
       this.preview = false;
+      this.length = 3;
   }
 
   ngOnInit() {
@@ -23,10 +28,16 @@ export class HomePageComponent implements OnInit {
     let link = ['/detail', image.authorId];
     this.router.navigate(link);
   }
+
   updateLikes(image){
-      var likes = Number(image.likes) + 1;
-      var item = this.af.database.object('/images/'+image.$key);
-      item.update({'likes':likes});
+      this.imageService.updateLikes(image);
+  }
+
+  updateComments($event,image){
+    this.imageService.updateComments(image,$event.target.value,this.user.auth.displayName);
+  }
+  addLength(){
+    this.length += 3;
   }
   openImage(url){
     var img = <HTMLInputElement>document.querySelector('.largeImg');
@@ -34,6 +45,7 @@ export class HomePageComponent implements OnInit {
     console.log(img);
     this.preview = true;
   }
+
   closeImage(){
     this.preview = false;
   }

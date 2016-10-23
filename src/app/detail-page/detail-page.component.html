@@ -1,7 +1,6 @@
-
-
-<div class="card-container">
-	<md-card *ngFor="let image of images | async">
+<masonry [options]="{gutter: 20, percentPosition: true}">
+  <masonry-brick class="brick" *ngFor="let image of images | async">
+	<md-card>
 	  <md-card-header>
 	  	<img md-card-avatar src="{{image.authorPhoto}}">
 	  	<md-card-title>{{image.author}}</md-card-title>
@@ -9,8 +8,18 @@
 	  </md-card-header>
 	  <img md-card-image alt="Main image" src="{{image.url}}">
 	  <md-card-content>
-	    <md-card-title><md-icon class="like" (click)="updateLikes(image)">favorite</md-icon></md-card-title>
-	    <p>{{image.likes}} LIKES</p>
+	    <p><span>{{image.likes}} Likes</span><span class="comment">{{(image.comments | toList).length}} Comments</span></p>
+	    <p class="load" (click)="addLength()">Load more comments</p>
+	    <div *ngIf="image.comments">
+	    <p *ngFor="let comment of (image.comments | toList | listSlice: length)"><b>{{comment.comment.from}}</b>:&nbsp;{{comment.comment.comment}}</p>
+	    </div>
 	  </md-card-content>
+	  <md-card-actions>
+	    	<button (click)="updateLikes(image)">
+              <md-icon>favorite</md-icon>
+            </button>
+            <input placeholder="Add a comment" (keyup.enter)="updateComments($event,image)">
+        </md-card-actions>
 	</md-card>
-</div> 	
+  </masonry-brick>
+</masonry>

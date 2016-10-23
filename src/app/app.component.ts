@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable,AuthMethods,AuthProviders } from 'angularfire2';
+import { ImageServiceService } from './image-service.service'
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,9 @@ import { AngularFire, FirebaseListObservable,AuthMethods,AuthProviders } from 'a
 })
 export class AppComponent {
   title: any;
-  images: FirebaseListObservable<any[]>;
   user:any;
   close: boolean;
-  constructor(public af: AngularFire){
-      this.images = af.database.list('/images');
+  constructor(public af: AngularFire, public imageService: ImageServiceService){
       this.af.auth.subscribe(user => {this.user = user});
   		this.title = "";
       this.close = true;
@@ -24,16 +23,20 @@ export class AppComponent {
   }
 
   closeWindow(){
+    this.title = "";
+    var preview = <HTMLInputElement>document.querySelector('.preview');
+    preview.src = "";
     this.close = true;
   }
 
   showWindow(){
+    var file = <HTMLInputElement>document.getElementById("image");
+    if(file.value != ""){
+      file.value = "";
+    }
     this.close = false;
   }
 
-  addToList(item: any) {
-    this.images.push(item);
-  }
 
   upload(){
     if(this.user == null){
@@ -41,39 +44,19 @@ export class AppComponent {
     }
   	var self = this;
   	var file = <HTMLInputElement>document.getElementById("image");
-    var imageName = self.user.uid + '-' + file.files[0].name;
-  	var storageRef = firebase.storage().ref().child('images/'+ imageName);
-
   	var metadata = {
   		customMetadata: {
   			'author': self.user.auth.displayName, 
         'authorId': self.user.uid,
   			'likes': '0',
         'authorPhoto': self.user.auth.photoURL,
-  			'title': self.title
+  			'title': self.title,
+        'comments': ''
   		}
   	};
- 
-  	storageRef.put(file.files[0], metadata).then(function(snapshot) {
-  		var data = snapshot.metadata;
-  		var item = {
-  			"author": data.customMetadata["author"], 
-        "authorPhoto": data.customMetadata["authorPhoto"],
-        "authorId": data.customMetadata["authorId"],
-  			"likes": data.customMetadata["likes"], 
-  			"title":data.customMetadata["title"], 
-  			"name": data.name,
-  			"time":data.timeCreated,
-  			"contentType":data.contentType,
-  			"url":data.downloadURLs[0]
-  		};
-  		self.addToList(item);
-  		if(snapshot.state == "success"){
-  			self.title = "";
-  			file.value= "";
-  			alert('upload success');
-  		}
-	}).catch(err => console.log(err));
+    this.imageService.uploadImage(this.user,file,this.title,metadata);
+  	this.closeWindow();
+	
 
   }
 

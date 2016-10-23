@@ -12,6 +12,9 @@ import { MaterialModule } from '@angular/material';
 import { MasonryModule } from 'angular2-masonry';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { DetailPageComponent } from './detail-page/detail-page.component';
+import { ImageServiceService } from './image-service.service';
+import { ToListPipe } from './to-list.pipe';
+import { ListSlicePipe } from './list-slice.pipe';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCdqRFQKt1LUzxmDaZ47yW0pV9NGaKtjFg",
@@ -30,7 +33,9 @@ firebase.initializeApp(firebaseConfig);
     HomePageComponent,
     MyPageComponent,
     LoginPageComponent,
-    DetailPageComponent
+    DetailPageComponent,
+    ToListPipe,
+    ListSlicePipe,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,7 @@ firebase.initializeApp(firebaseConfig);
       ]),
     MaterialModule.forRoot(),
   ],
-  providers: [],
+  providers: [ImageServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -61,3 +61,13 @@ nav a{
 	z-index: 9999;
 }
 
+button{
+	background-color:#EC407A;
+	color: #ffffff;
+
+}
+
+form input{
+	margin: 20px auto;
+}
+

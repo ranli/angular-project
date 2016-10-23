@@ -8,13 +8,21 @@
 	  </md-card-header>
 	  <img (click)="openImage(image.url)" md-card-image alt="Main image" src="{{image.url}}">
 	  <md-card-content>
-	    <md-card-title><md-icon class="like" (click)="updateLikes(image)">favorite</md-icon></md-card-title>
-	    <p>{{image.likes}} LIKES</p>
+	    <p><span>{{image.likes}} Likes</span><span class="comment">{{(image.comments | toList).length}} Comments</span></p>
+	    <p  class="load" (click)="addLength()">Load more comments</p>
+	    <div *ngIf="image.comments">
+	    <p *ngFor="let comment of (image.comments | toList | listSlice: length)"><b>{{comment.comment.from}}</b>:&nbsp;{{comment.comment.comment}}</p>
+	    </div>
 	  </md-card-content>
+	    <md-card-actions>
+	    	<button (click)="updateLikes(image)">
+              <md-icon>favorite</md-icon>
+            </button>
+            <input placeholder="Add a comment" (keyup.enter)="updateComments($event,image)">
+        </md-card-actions>
 	</md-card>
   </masonry-brick>
 </masonry>
-
 <div [hidden]="!preview" class="imgContainer">
 	<div class="inner">
 		<md-icon class="close" (click)="closeImage()">close</md-icon>

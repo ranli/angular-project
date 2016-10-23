@@ -1,15 +1,21 @@
 <md-toolbar [color]="myColor">
   <span>My Recent Uploads:</span>
 </md-toolbar>
-<div class="card-container">
-	<md-card *ngFor="let image of images | async">
-	  <md-card-header>
+<masonry [options]="{gutter: 10, percentPosition: true}">
+  <masonry-brick class="brick" *ngFor="let image of images | async">
+	<md-card>
+	  <md-card-content>
 	    <md-card-title>{{image.title}}</md-card-title>
-	  </md-card-header>
+	  </md-card-content>
 	  <img md-card-image alt="Main image" src="{{image.url}}">
 	  <md-card-content>
-	    <md-card-title><md-icon class="like">favorite</md-icon></md-card-title>
-	    <p>{{image.likes}} LIKES</p>
+	    <p>{{image.likes}} Likes</p>
+	    <p class="comment" (click)="openComment()">{{(image.comments | toList).length}} Comments</p>
+	    <div *ngIf="image.comments && open">
+	    	<p *ngFor="let comment of (image.comments | toList )"><b>{{comment.comment.from}}</b>:&nbsp;{{comment.comment.comment}}</p>
+	    </div>
 	  </md-card-content>
 	</md-card>
-</div> 	
+  </masonry-brick>
+</masonry>
+	
